@@ -2,8 +2,10 @@
 
 __global__ void vector_add(const float* A, const float* B, float* C, int N) {
     // Store N element-wise results in C; this kernel returns no value.
-    for(int i=0;i<N;i++){
-        C[i]=A[i]+B[i];
+    int idx=blockIdx.x * blockDim.x + threadIdx.x;
+
+    if(idx<N){
+        C[idx]=A[idx]+B[idx];
     }
 }
 
