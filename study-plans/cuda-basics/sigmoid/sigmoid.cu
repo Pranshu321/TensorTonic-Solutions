@@ -5,7 +5,7 @@ __global__ void sigmoid_kernel(const float* input, float* output, int N) {
     // Store N element-wise results in output; this kernel returns no value.
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     if(idx<N){
-        output[idx] = 1.0f*(1/(1+expf(-input[idx])));
+        output[idx] = __fdividef(1, (1+__frcp_rn(expf(input[idx]))));
     }
 }
 
