@@ -5,12 +5,7 @@ __global__ void leaky_relu_kernel(const float* input, float* output, float alpha
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
 
     if(idx<N){
-        if(input[idx]>=0){
-            output[idx]=input[idx];
-        }
-        else{
-            output[idx]=alpha*input[idx];
-        }
+        output[idx] = fmaxf(input[idx] , 0) + alpha*(fminf(input[idx],0));
     }
 }
 
